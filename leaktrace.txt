@@ -1,0 +1,93 @@
+┬───
+│ GC Root: Thread object
+│
+├─ android.os.HandlerThread instance
+│    Leaking: NO (PathClassLoader↓ is not leaking)
+│    Thread name: 'LeakCanary-Heap-Dump'
+│    ↓ Thread.contextClassLoader
+├─ dalvik.system.PathClassLoader instance
+│    Leaking: NO (DatabaseProvider↓ is not leaking and A ClassLoader is never
+│    leaking)
+│    ↓ ClassLoader.runtimeInternalObjects
+├─ java.lang.Object[] array
+│    Leaking: NO (DatabaseProvider↓ is not leaking)
+│    ↓ Object[859]
+├─ com.example.leak.DatabaseProvider class
+│    Leaking: NO (a class is never leaking)
+│    ↓ static DatabaseProvider.db
+│                              ~~
+├─ com.example.leak.db.app.LeakDbImpl instance
+│    Leaking: UNKNOWN
+│    Retaining 65.8 kB in 1239 objects
+│    ↓ BaseTransacterImpl.driver
+│                         ~~~~~~
+├─ app.cash.sqldelight.logs.LogSqliteDriver instance
+│    Leaking: UNKNOWN
+│    Retaining 65.7 kB in 1237 objects
+│    ↓ LogSqliteDriver.sqlDriver
+│                      ~~~~~~~~~
+├─ app.cash.sqldelight.driver.android.AndroidSqliteDriver instance
+│    Leaking: UNKNOWN
+│    Retaining 65.7 kB in 1236 objects
+│    ↓ AndroidSqliteDriver.listeners
+│                          ~~~~~~~~~
+├─ java.util.LinkedHashMap instance
+│    Leaking: UNKNOWN
+│    Retaining 64.8 kB in 1198 objects
+│    ↓ LinkedHashMap["someTable"]
+│                   ~~~~~~~~~~~~~
+├─ java.util.LinkedHashSet instance
+│    Leaking: UNKNOWN
+│    Retaining 64.6 kB in 1195 objects
+│    ↓ LinkedHashSet[element()]
+│                   ~~~~~~~~~~~
+├─ app.cash.sqldelight.paging3.OffsetQueryPagingSource instance
+│    Leaking: UNKNOWN
+│    Retaining 64.5 kB in 1191 objects
+│    ↓ OffsetQueryPagingSource.queryProvider
+│                              ~~~~~~~~~~~~~
+├─ app.cash.sqldelight.paging3.QueryPagingSourceKt$QueryPagingSource$1 instance
+│    Leaking: UNKNOWN
+│    Retaining 32 B in 2 objects
+│    Anonymous subclass of kotlin.jvm.internal.Lambda
+│    ↓ QueryPagingSourceKt$QueryPagingSource$1.$queryProvider
+│                                              ~~~~~~~~~~~~~~
+├─ com.example.leak.LeakActivity$onCreate$pager$1$1 instance
+│    Leaking: UNKNOWN
+│    Retaining 16 B in 1 objects
+│    Anonymous subclass of kotlin.jvm.internal.Lambda
+│    this$0 instance of com.example.leak.LeakActivity with mDestroyed = true
+│    ↓ LeakActivity$onCreate$pager$1$1.this$0
+│                                      ~~~~~~
+╰→ com.example.leak.LeakActivity instance
+​     Leaking: YES (ObjectWatcher was watching this because com.example.leak.
+​     LeakActivity received Activity#onDestroy() callback and
+​     Activity#mDestroyed is true)
+​     Retaining 63.6 kB in 1151 objects
+​     key = 3687c0cf-ca50-495d-a85d-4a192d2e0970
+​     watchDurationMillis = 39348
+​     retainedDurationMillis = 34344
+​     mApplication instance of android.app.Application
+​     mBase instance of androidx.appcompat.view.ContextThemeWrapper
+
+METADATA
+
+Build.VERSION.SDK_INT: 33
+Build.MANUFACTURER: Google
+LeakCanary version: 2.12
+App process name: com.example.leak
+Class count: 24939
+Instance count: 183609
+Primitive array count: 129221
+Object array count: 27337
+Thread count: 22
+Heap total bytes: 25109309
+Bitmap count: 1
+Bitmap total bytes: 59137
+Large bitmap count: 0
+Large bitmap total bytes: 0
+Db 1: open :memory:
+Stats: LruCache[maxSize=3000,hits=107342,misses=185197,hitRate=36%]
+RandomAccess[bytes=9166185,reads=185197,travel=61975111224,range=30337002,size=3
+7810229]
+Analysis duration: 3476 ms
