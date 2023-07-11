@@ -1,0 +1,14 @@
+CREATE TABLE someTable (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    text TEXT NOT NULL
+);
+
+items:
+SELECT * FROM someTable
+ORDER BY id
+LIMIT :limit
+OFFSET :offset
+;
+
+itemsCount:
+SELECT COUNT(*) FROM someTable;
