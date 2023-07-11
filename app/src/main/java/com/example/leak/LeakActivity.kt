@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import app.cash.paging.Pager
 import app.cash.sqldelight.paging3.QueryPagingSource
-import com.example.leak.databinding.FragmentLeakBinding
+import com.example.leak.databinding.ActivityLeakBinding
 import com.example.leak.db.SomeTable
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
@@ -24,16 +24,21 @@ import kotlinx.coroutines.launch
 
 class LeakActivity : AppCompatActivity() {
 
-    val db by lazy { DatabaseProvider.instance(applicationContext) }
+    // Weird behaviour with leak canary if I comment this line and uncomment line 41 the
+    // memory leak is not detected but it still happens as sql driver still has the paging source
+    // as an attached listener.
+    private val db by lazy { DatabaseProvider.instance(applicationContext) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val binding = FragmentLeakBinding.inflate(layoutInflater)
+        val binding = ActivityLeakBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val adapter = Adapter()
         binding.recyclerView.adapter = adapter
+
+        // val db = DatabaseProvider.instance(applicationContext)
 
         val pager = Pager(
             config = PagingConfig(pageSize = 20),
